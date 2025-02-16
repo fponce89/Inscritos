@@ -42,7 +42,7 @@
     <script>
         async function cargarInscritos() {
             try {
-                const url = "TU_URL_DEL_SCRIPT";  // ⚠️ Reemplázala con tu URL del Apps Script
+                const url = "https://script.google.com/macros/s/AKfycbx1lmBaaUZNn2Weke1rwLrrP8RD2VtEAY2dZypMVFHMIcJ8fKzM60sKRKgjSqRt2NyzCQ/exec";  // ⚠️ Reemplázala con tu URL del Apps Script
                 const respuesta = await fetch(url);
                 const datos = await respuesta.json();
 
