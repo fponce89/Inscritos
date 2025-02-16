@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Inscritos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: 300px;
+            text-align: left;
+        }
+        .card h3 {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        .flags {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Listado de Inscritos</h2>
+    <div class="container" id="inscritos"></div>
+
+    <script>
+        async function cargarInscritos() {
+            try {
+                const url = "TU_URL_DEL_SCRIPT";  // ⚠️ Reemplázala con tu URL del Apps Script
+                const respuesta = await fetch(url);
+                const datos = await respuesta.json();
+
+                const contenedor = document.getElementById("inscritos");
+                contenedor.innerHTML = "";
+
+                datos.forEach(inscrito => {
+                    const tarjeta = document.createElement("div");
+                    tarjeta.className = "card";
+                    tarjeta.innerHTML = `
+                        <h3>Dorsal: ${inscrito.dorsal}</h3>
+                        <p><strong>Pareja:</strong> ${inscrito.pareja}</p>
+                        <p><strong>Club:</strong> ${inscrito.club || "No especificado"}</p>
+                        <p><strong>Equipo:</strong> ${inscrito.equipo || "No especificado"}</p>
+                        <p><strong>Sponsor:</strong> ${inscrito.sponsor || "No especificado"}</p>
+                        <p class="flags">${asignarBandera(inscrito.pais)}</p>
+                    `;
+                    contenedor.appendChild(tarjeta);
+                });
+            } catch (error) {
+                console.error("Error al cargar los inscritos:", error);
+            }
+        }
+
+        function asignarBandera(pais) {
+            const banderas = {
+                "España": "🇪🇸",
+                "Portugal": "🇵🇹",
+                "México": "🇲🇽",
+                "Francia": "🇫🇷",
+                "Portugal/España": "🇵🇹🇪🇸",
+                "EEUU": "🇺🇸",
+                "Rumanía": "🇷🇴",
+                "Japón": "🇯🇵"
+            };
+            return banderas[pais] || "🏳️"; // Si no encuentra el país, muestra una bandera genérica
+        }
+
+        cargarInscritos();
+    </script>
+
+</body>
+</html>
